@@ -44,8 +44,16 @@ lib/
 - [x] My listings with delete functionality
 - [x] Image picker and Firebase Storage
 
+### ✅ Phase 4: Swap Functionality
+- [x] Swap entities and models
+- [x] Swap repository with batch operations
+- [x] Swap provider for state management
+- [x] Real-time swap requests
+- [x] Book status updates (available → pending)
+- [x] My Offers screen with status tracking
+- [x] Swap button on browse screen
+
 ### 🚧 In Progress
-- [ ] Swap functionality
 - [ ] Real-time chat (bonus)
 
 ## Setup Instructions
@@ -66,3 +74,5 @@ You'll need to add your own Firebase configuration files:
 
 Using Provider for state management with the following providers:
 - `AuthProvider`: Handles authentication state and operations
+- `BookProvider`: Manages book CRUD operations and image uploads
+- `SwapProvider`: Handles swap requests and real-time updates

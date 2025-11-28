@@ -5,28 +5,53 @@ import '../../providers/book_provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../data/models/book_model.dart';
 import 'add_book_screen.dart';
+import 'my_offers_screen.dart';
 
 class MyListingsScreen extends StatelessWidget {
   const MyListingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Books'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const AddBookScreen()),
-              );
-            },
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('My Books'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AddBookScreen()),
+                );
+              },
+            ),
+          ],
+          bottom: const TabBar(
+            tabs: [
+              Tab(text: 'My Books'),
+              Tab(text: 'My Offers'),
+            ],
           ),
-        ],
+        ),
+        body: const TabBarView(
+          children: [
+            _MyBooksTab(),
+            MyOffersScreen(),
+          ],
+        ),
       ),
-      body: Consumer2<BookProvider, AuthProvider>(
+    );
+  }
+}
+
+class _MyBooksTab extends StatelessWidget {
+  const _MyBooksTab();
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer2<BookProvider, AuthProvider>(
         builder: (context, bookProvider, authProvider, child) {
           return StreamBuilder<List<BookModel>>(
             stream: bookProvider.getUserBooks(authProvider.user!.id),
@@ -57,7 +82,7 @@ class MyListingsScreen extends StatelessWidget {
                             )
                           : const Icon(Icons.book),
                       title: Text(book.title),
-                      subtitle: Text('${book.author} • ${book.condition}'),
+                      subtitle: Text('${book.author} • ${book.condition} • ${book.status.toUpperCase()}'),
                       trailing: PopupMenuButton(
                         itemBuilder: (context) => [
                           const PopupMenuItem(
@@ -82,7 +107,7 @@ class MyListingsScreen extends StatelessWidget {
     );
   }
 
-  void _deleteBook(BuildContext context, BookProvider bookProvider, String bookId) {
+  static void _deleteBook(BuildContext context, BookProvider bookProvider, String bookId) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

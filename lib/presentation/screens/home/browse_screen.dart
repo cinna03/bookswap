@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../providers/book_provider.dart';
+import '../../providers/swap_provider.dart';
+import '../../providers/auth_provider.dart';
 import '../../data/models/book_model.dart';
 
 class BrowseScreen extends StatelessWidget {
@@ -13,8 +15,8 @@ class BrowseScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Browse Books'),
       ),
-      body: Consumer<BookProvider>(
-        builder: (context, bookProvider, child) {
+      body: Consumer3<BookProvider, SwapProvider, AuthProvider>(
+        builder: (context, bookProvider, swapProvider, authProvider, child) {
           return StreamBuilder<List<BookModel>>(
             stream: bookProvider.getAllBooks(),
             builder: (context, snapshot) {
@@ -39,6 +41,8 @@ class BrowseScreen extends StatelessWidget {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   final book = snapshot.data![index];
+                  final isOwnBook = book.ownerId == authProvider.user!.id;
+                  
                   return Card(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,10 +72,33 @@ class BrowseScreen extends StatelessWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              Text(
-                                book.condition,
-                                style: TextStyle(color: Colors.grey[600]),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    book.condition,
+                                    style: TextStyle(color: Colors.grey[600]),
+                                  ),
+                                  Text(
+                                    book.status.toUpperCase(),
+                                    style: TextStyle(
+                                      color: book.status == 'available' 
+                                          ? Colors.green 
+                                          : Colors.orange,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
+                              if (!isOwnBook && book.status == 'available')
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () => _requestSwap(context, swapProvider, book, authProvider.user!.id),
+                                    child: const Text('Swap'),
+                                  ),
+                                ),
                             ],
                           ),
                         ),
@@ -85,5 +112,23 @@ class BrowseScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _requestSwap(BuildContext context, SwapProvider swapProvider, BookModel book, String userId) async {
+    final error = await swapProvider.createSwapRequest(
+      bookId: book.id,
+      bookOwnerId: book.ownerId,
+      requesterId: userId,
+    );
+
+    if (error != null && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(error)),
+      );
+    } else if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Swap request sent!')),
+      );
+    }
   }
 }
