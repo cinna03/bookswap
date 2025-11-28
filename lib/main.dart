@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'presentation/providers/auth_provider.dart';
+import 'presentation/providers/book_provider.dart';
 import 'presentation/screens/auth_wrapper.dart';
 
 void main() async {
@@ -18,6 +19,7 @@ class BookSwapApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => BookProvider()),
       ],
       child: MaterialApp(
         title: 'BookSwap',

@@ -36,8 +36,15 @@ lib/
 - [x] Settings page with profile & toggles
 - [x] Main app navigation flow
 
+### ✅ Phase 3: Book Listings CRUD
+- [x] Book repository with Firebase operations
+- [x] Book provider for state management
+- [x] Add book screen with image upload
+- [x] Browse books with real-time updates
+- [x] My listings with delete functionality
+- [x] Image picker and Firebase Storage
+
 ### 🚧 In Progress
-- [ ] Book listings CRUD
 - [ ] Swap functionality
 - [ ] Real-time chat (bonus)
 
