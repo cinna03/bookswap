@@ -1,4 +1,4 @@
-# BookSwap App
+﻿# BookSwap App
 
 Hello! This is my book exchange app. Basically, you can list your old books and swap them with other students instead of buying expensive new ones.
 
@@ -13,28 +13,6 @@ Hello! This is my book exchange app. Basically, you can list your old books and 
 
 ## Architecture Diagram
 
-```
-┌─────────────────────────────────────┐
-│           Presentation Layer        │
-│  ┌─────────────┐ ┌─────────────────┐ │
-│  │   Screens   │ │    Providers    │ │
-│  │             │ │  (State Mgmt)   │ │
-│  └─────────────┘ └─────────────────┘ │
-├─────────────────────────────────────┤
-│            Domain Layer             │
-│  ┌─────────────┐ ┌─────────────────┐ │
-│  │  Entities   │ │   Use Cases     │ │
-│  └─────────────┘ └─────────────────┘ │
-├─────────────────────────────────────┤
-│             Data Layer              │
-│  ┌─────────────┐ ┌─────────────────┐ │
-│  │   Models    │ │  Repositories   │ │
-│  └─────────────┘ └─────────────────┘ │
-└─────────────────────────────────────┘
-                    ↓
-            Firebase Backend
-         (Auth, Firestore, Storage)
-```
 
 ## Database Schema
 
