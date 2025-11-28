@@ -53,8 +53,14 @@ lib/
 - [x] My Offers screen with status tracking
 - [x] Swap button on browse screen
 
-### 🚧 In Progress
-- [ ] Real-time chat (bonus)
+### ✅ Phase 5: Real-time Chat (Bonus)
+- [x] Chat entities and models
+- [x] Chat repository with message operations
+- [x] Chat provider for state management
+- [x] Real-time chat list screen
+- [x] Chat detail screen with messaging
+- [x] Auto-chat creation on swap requests
+- [x] Message timestamps and user identification
 
 ## Setup Instructions
 
@@ -76,3 +82,4 @@ Using Provider for state management with the following providers:
 - `AuthProvider`: Handles authentication state and operations
 - `BookProvider`: Manages book CRUD operations and image uploads
 - `SwapProvider`: Handles swap requests and real-time updates
+- `ChatProvider`: Manages real-time chat functionality

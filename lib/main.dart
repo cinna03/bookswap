@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'presentation/providers/auth_provider.dart';
 import 'presentation/providers/book_provider.dart';
 import 'presentation/providers/swap_provider.dart';
+import 'presentation/providers/chat_provider.dart';
 import 'presentation/screens/auth_wrapper.dart';
 
 void main() async {
@@ -22,6 +23,7 @@ class BookSwapApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => BookProvider()),
         ChangeNotifierProvider(create: (_) => SwapProvider()),
+        ChangeNotifierProvider(create: (_) => ChatProvider()),
       ],
       child: MaterialApp(
         title: 'BookSwap',
