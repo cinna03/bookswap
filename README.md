@@ -96,4 +96,4 @@ The app follows clean architecture principles with clear separation:
 ✅ **Chat System**: Real-time messaging between users
 ✅ **Settings**: Profile management and notification toggles
 
-**Done by:** David Birenzi
+**Done by:** Cannelle Mwiza
